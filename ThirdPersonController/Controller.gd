@@ -3,6 +3,7 @@ extends Spatial
 export(NodePath) var PlayerPath  = ""
 export(float) var MovementSpeed = 10
 export(float) var Acceleration = 3
+export(float) var MaxJump = 19
 export(float) var MouseSensitivity = 2
 export(float) var RotationLimit = 45
 export(float) var MaxZoom = 0.5
@@ -12,11 +13,14 @@ var Player
 var InnerGimbal
 var Direction = Vector3()
 var Rotation = Vector2()
-var gravity = Vector3(0,-10,0)
+var gravity = -10
 var Movement = Vector3()
 var ZoomFactor = 1
 var ActualZoom = 1
 var Speed = Vector3()
+var CurrentVerticalSpeed = Vector3()
+var JumpAcceleration = 3
+var IsAirborne = false
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -36,7 +40,6 @@ func _unhandled_input(event):
 			BUTTON_WHEEL_DOWN:
 				ZoomFactor += 0.05
 		ZoomFactor = clamp(ZoomFactor, MaxZoom, MinZoom)
-
 	if event is InputEventKey and event.pressed:
 		match event.scancode:
 			KEY_ESCAPE:
@@ -59,8 +62,13 @@ func _unhandled_input(event):
 				Direction.x += 1
 			KEY_D:
 				Direction.x -= 1
+			KEY_SPACE:
+				if not IsAirborne:
+					CurrentVerticalSpeed = Vector3(0,MaxJump,0)
+					IsAirborne = true
 	Direction.z = clamp(Direction.z, -1,1)
 	Direction.x = clamp(Direction.x, -1,1)
+	
 
 func _physics_process(delta):
 	#Rotation
@@ -73,8 +81,13 @@ func _physics_process(delta):
 	var MaxSpeed = MovementSpeed *Direction.normalized()
 	Speed = Speed.linear_interpolate(MaxSpeed, delta * Acceleration)
 	Movement = Player.transform.basis * (Speed)
-	Movement += gravity
+	CurrentVerticalSpeed.y += gravity * delta * JumpAcceleration
+	Movement += CurrentVerticalSpeed
+	print(CurrentVerticalSpeed)
 	Player.move_and_slide(Movement,Vector3(0,1,0))
+	if Player.is_on_floor() :
+		CurrentVerticalSpeed.y = 0
+		IsAirborne = false
 	
 	#Zoom
 	ActualZoom = lerp(ActualZoom, ZoomFactor, delta * ZoomSpeed)
