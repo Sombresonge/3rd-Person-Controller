@@ -7,7 +7,7 @@ export(float) var MouseSensitivity = 2
 export(float) var RotationLimit = 45
 export(float) var MaxZoom = 0.5
 export(float) var MinZoom = 1.5
-
+export(float) var ZoomSpeed = 2
 var Player
 var InnerGimbal
 var Direction = Vector3()
@@ -15,6 +15,7 @@ var Rotation = Vector2()
 var gravity = Vector3(0,-10,0)
 var Movement = Vector3()
 var ZoomFactor = 1
+var ActualZoom = 1
 var Speed = Vector3()
 
 func _ready():
@@ -72,5 +73,7 @@ func _physics_process(delta):
 	Movement = Player.transform.basis * (Speed)
 	Movement += gravity
 	
-	InnerGimbal.set_scale(Vector3(ZoomFactor,ZoomFactor,ZoomFactor))
+	ActualZoom = lerp(ActualZoom, ZoomFactor, delta * ZoomSpeed)
+	
+	InnerGimbal.set_scale(Vector3(ActualZoom,ActualZoom,ActualZoom))
 	Player.move_and_slide(Movement,Vector3(0,1,0))

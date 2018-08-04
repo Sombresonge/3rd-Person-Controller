@@ -133,4 +133,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Controller" parent="." index="2" instance=ExtResource( 1 )]
 
+ZoomSpeed = 2
+
 
