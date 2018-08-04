@@ -1,0 +1,6 @@
+D:\GameEngine\project\3rdPersonController\.mono\temp\bin\Tools\3rdPersonController.dll
+D:\GameEngine\project\3rdPersonController\.mono\temp\bin\Tools\3rdPersonController.pdb
+D:\GameEngine\project\3rdPersonController\.mono\temp\obj\Tools\3rdPersonController.csprojAssemblyReference.cache
+D:\GameEngine\project\3rdPersonController\.mono\temp\obj\Tools\3rdPersonController.csproj.CoreCompileInputs.cache
+D:\GameEngine\project\3rdPersonController\.mono\temp\obj\Tools\3rdPersonController.dll
+D:\GameEngine\project\3rdPersonController\.mono\temp\obj\Tools\3rdPersonController.pdb
