@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://ThirdPersonController/ThirdPersonController.scn" type="PackedScene" id=1]
-[ext_resource path="res://Test Scene/grey_material.tres" type="Material" id=2]
-[ext_resource path="res://Test Scene/Static cube.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Test Scene/grey_material.tres" type="Material" id=1]
+[ext_resource path="res://Test Scene/Static cube.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ThirdPersonController/test_player.tscn" type="PackedScene" id=3]
 
 [sub_resource type="PlaneMesh" id=3]
 
@@ -47,11 +47,7 @@ directional_shadow_depth_range = 0
 directional_shadow_max_distance = 200.0
 _sections_unfolded = [ "Directional Shadow", "Shadow" ]
 
-[node name="Controller" parent="." index="1" instance=ExtResource( 1 )]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.1364, 0 )
-
-[node name="Level" type="Spatial" parent="." index="2"]
+[node name="Level" type="Spatial" parent="." index="1"]
 
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 _sections_unfolded = [ "Transform" ]
@@ -71,7 +67,7 @@ lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
 mesh = SubResource( 3 )
 skeleton = NodePath("..")
-material/0 = ExtResource( 2 )
+material/0 = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "material" ]
 
 [node name="StaticBody" type="StaticBody" parent="Level/Floor" index="0"]
@@ -92,32 +88,36 @@ shape = SubResource( 4 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
 
-[node name="Static cube" parent="Level" index="1" instance=ExtResource( 3 )]
+[node name="Static cube" parent="Level" index="1" instance=ExtResource( 2 )]
 
 transform = Transform( 10, 0, 0, 0, 3, 0, 0, 0, 0.5, 0, 3, -9.5 )
 
-[node name="Static cube2" parent="Level" index="2" instance=ExtResource( 3 )]
+[node name="Static cube2" parent="Level" index="2" instance=ExtResource( 2 )]
 
 transform = Transform( 10, 0, 0, 0, 2, 0, 0, 0, 0.5, 0, 2, 9.5 )
 
-[node name="Static cube3" parent="Level" index="3" instance=ExtResource( 3 )]
+[node name="Static cube3" parent="Level" index="3" instance=ExtResource( 2 )]
 
 transform = Transform( -0.074227, 0, -0.499983, 0, 2.5, 0, 8.99969, 0, -0.00412372, 9.5, 2.5, 0 )
 
-[node name="Static cube4" parent="Level" index="4" instance=ExtResource( 3 )]
+[node name="Static cube4" parent="Level" index="4" instance=ExtResource( 2 )]
 
 transform = Transform( -0.074227, 0, -0.499983, 0, 2.5, 0, 8.99969, 0, -0.00412372, -9.5, 2.5, 0 )
 
-[node name="Static cube5" parent="Level" index="5" instance=ExtResource( 3 )]
+[node name="Static cube5" parent="Level" index="5" instance=ExtResource( 2 )]
 
 transform = Transform( -0.840681, 0, -0.541531, 0, 2, 0, 0.541531, 0, -0.840681, 1.60711, 2, -4.52622 )
 
-[node name="Static cube6" parent="Level" index="6" instance=ExtResource( 3 )]
+[node name="Static cube6" parent="Level" index="6" instance=ExtResource( 2 )]
 
 transform = Transform( 0.282327, 0, 0.479659, 0, 1, 0, -0.959318, 0, 0.141163, 5.68626, 1, 6.92052 )
 
-[node name="Static cube7" parent="Level" index="7" instance=ExtResource( 3 )]
+[node name="Static cube7" parent="Level" index="7" instance=ExtResource( 2 )]
 
 transform = Transform( -0.596717, 0, 0.401226, 0, 1, 0, -0.802451, 0, -0.298359, -7.13092, 1, 5.02082 )
+
+[node name="Player" parent="." index="2" instance=ExtResource( 3 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.58265, 0 )
 
 
