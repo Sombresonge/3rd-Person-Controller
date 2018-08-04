@@ -40,7 +40,7 @@ func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
 		match event.scancode:
 			KEY_ESCAPE:
-					get_tree().quit()
+				get_tree().quit()
 			KEY_Z:
 				Direction.z -= 1
 			KEY_S:
@@ -63,17 +63,19 @@ func _unhandled_input(event):
 	Direction.x = clamp(Direction.x, -1,1)
 
 func _physics_process(delta):
+	#Rotation
 	Player.rotate_y(deg2rad(-Rotation.x)*delta*MouseSensitivity)
 	InnerGimbal.rotate_x(deg2rad(-Rotation.y)*delta*MouseSensitivity)
 	InnerGimbal.rotation_degrees.x = clamp(InnerGimbal.rotation_degrees.x, -RotationLimit, RotationLimit)
 	Rotation = Vector2()
 	
+	#Movement
 	var MaxSpeed = MovementSpeed *Direction.normalized()
 	Speed = Speed.linear_interpolate(MaxSpeed, delta * Acceleration)
 	Movement = Player.transform.basis * (Speed)
 	Movement += gravity
-	
-	ActualZoom = lerp(ActualZoom, ZoomFactor, delta * ZoomSpeed)
-	
-	InnerGimbal.set_scale(Vector3(ActualZoom,ActualZoom,ActualZoom))
 	Player.move_and_slide(Movement,Vector3(0,1,0))
+	
+	#Zoom
+	ActualZoom = lerp(ActualZoom, ZoomFactor, delta * ZoomSpeed)
+	InnerGimbal.set_scale(Vector3(ActualZoom,ActualZoom,ActualZoom))
